@@ -6,12 +6,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bakapp.movies.Movie
-import com.bakapp.movies.movies
+import com.bakapp.movies.data.Movie
+import com.bakapp.movies.data.MoviesService
+import com.bakapp.movies.data.RemoteMovie
+import com.bakapp.movies.data.movies
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(
+    private val moviesService: MoviesService
+) : ViewModel() {
 
     //TODO: simulacion de la carga
     var state by mutableStateOf(UiState())
@@ -19,8 +23,13 @@ class HomeViewModel : ViewModel() {
     init {
         viewModelScope.launch {
         state = UiState(loading = true)
-            delay(1000)
-            state = UiState(loading = false, movies = movies)
+
+            state = UiState(
+                loading = false,
+                movies = moviesService.fetchPopularMovies().results.map {
+                    it.toDomainMovie()
+                }
+            )
         }
     }
 
@@ -29,3 +38,9 @@ class HomeViewModel : ViewModel() {
         val movies: List<Movie> = emptyList()
     )
 }
+
+private fun RemoteMovie.toDomainMovie() = Movie(
+    id = id,
+    title = title,
+    poster = "https:image.tmdb.org/t/p/w500$posterPath"
+)

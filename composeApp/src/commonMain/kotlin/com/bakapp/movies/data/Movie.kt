@@ -1,4 +1,4 @@
-package com.bakapp.movies
+package com.bakapp.movies.data
 
 data class Movie(
     val id: Int,

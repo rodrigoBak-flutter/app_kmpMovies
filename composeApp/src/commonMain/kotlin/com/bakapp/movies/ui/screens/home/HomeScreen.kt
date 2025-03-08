@@ -28,8 +28,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil3.compose.AsyncImage
-import com.bakapp.movies.Movie
-import com.bakapp.movies.movies
+import com.bakapp.movies.data.Movie
 import com.bakapp.movies.ui.screens.Screen
 import kmpmovie.composeapp.generated.resources.Res
 import kmpmovie.composeapp.generated.resources.app_name
@@ -38,7 +37,7 @@ import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(onMivieClick: (Movie) -> Unit,vm: HomeViewModel = viewModel { HomeViewModel() } ){
+fun HomeScreen(onMivieClick: (Movie) -> Unit, vm: HomeViewModel){
     Screen {
         // val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
         val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
@@ -79,7 +78,7 @@ fun HomeScreen(onMivieClick: (Movie) -> Unit,vm: HomeViewModel = viewModel { Hom
 }
 
 @Composable
-fun MovieItem(movie: Movie,onClick: () -> Unit) {
+fun MovieItem(movie: Movie, onClick: () -> Unit) {
     Column(
         modifier = Modifier.clickable(onClick = onClick)
     ) {
