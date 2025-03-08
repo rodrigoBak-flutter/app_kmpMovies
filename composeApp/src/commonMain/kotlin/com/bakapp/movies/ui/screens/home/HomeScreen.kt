@@ -1,5 +1,6 @@
 package com.bakapp.movies.ui.screens.home
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -32,7 +33,7 @@ import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(){
+fun HomeScreen(onMivieClick: (Movie) -> Unit){
     Screen {
         // val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
         val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
@@ -54,7 +55,7 @@ fun HomeScreen(){
                 modifier = Modifier.padding(padding)
             ){
                 items(movies, key = {it.id}){
-                    MovieItem(movie = it)
+                    MovieItem(movie = it, onClick = {onMivieClick(it)})
                 }
             }
         }
@@ -63,8 +64,10 @@ fun HomeScreen(){
 }
 
 @Composable
-fun MovieItem(movie: Movie) {
-    Column {
+fun MovieItem(movie: Movie,onClick: () -> Unit ) {
+    Column(
+        modifier = Modifier.clickable(onClick = onClick)
+    ) {
         /*
         Box(modifier = Modifier
         .fillMaxWidth()
