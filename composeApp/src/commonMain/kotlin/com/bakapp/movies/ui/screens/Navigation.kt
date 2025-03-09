@@ -3,8 +3,7 @@ package com.bakapp.movies.ui.screens
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 
-import androidx.compose.ui.Modifier
-import androidx.lifecycle.ViewModel
+
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -26,7 +25,7 @@ import org.jetbrains.compose.resources.stringResource
 
 
 @Composable
-fun Navigation(modifier: Modifier = Modifier) {
+fun Navigation() {
     val navController = rememberNavController()
     val client = remember {
             HttpClient {
